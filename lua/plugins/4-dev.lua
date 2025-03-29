@@ -72,7 +72,7 @@ return {
       require("luasnip").filetype_extend("python", { "pydoc" })
       require("luasnip").filetype_extend("rust", { "rustdoc" })
       require("luasnip").filetype_extend("cs", { "csharpdoc" })
-      require("luasnip").filetype_extend("java", { "javadoc" })
+      -- require("luasnip").filetype_extend("java", { "javadoc" })
       require("luasnip").filetype_extend("c", { "cdoc" })
       require("luasnip").filetype_extend("cpp", { "cppdoc" })
       require("luasnip").filetype_extend("php", { "phpdoc" })
@@ -345,10 +345,10 @@ return {
   --  https://github.com/github/copilot.vim
   --  As alternative to chatgpt, you can use copilot uncommenting this.
   --  Then you must run :Copilot setup
-  -- {
-  --   "github/copilot.vim",
-  --   event = "User BaseFile"
-  -- },
+  {
+    "github/copilot.vim",
+    event = "User BaseFile"
+  },
   -- copilot-cmp
   -- https://github.com/zbirenbaum/copilot-cmp
   -- {
@@ -356,6 +356,20 @@ return {
   --   opts = { suggesion = { enabled = false }, panel = { enabled = false } },
   --   config = function (_, opts) require("copilot_cmp").setup(opts) end
   -- },
+  -- CopilotChat
+  -- https://github.com/CopilotC-Nvim/CopilotChat.nvim
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      -- See Configuration section for options
+    },
+    -- See Commands section for default commands if you want to lazy load on them
+  },
 
   -- [guess-indent]
   -- https://github.com/NMAC427/guess-indent.nvim
@@ -746,7 +760,7 @@ return {
       "rcarriga/cmp-dap",
       "jay-babu/mason-nvim-dap.nvim",
       "jbyuki/one-small-step-for-vimkind",
-      "nvim-java/nvim-java",
+      -- "nvim-java/nvim-java",
     },
   },
 
@@ -819,7 +833,7 @@ return {
       "Issafalcon/neotest-dotnet",
       "jfpedroza/neotest-elixir",
       "fredrikaverpil/neotest-golang",
-      "rcasia/neotest-java",
+      -- "rcasia/neotest-java",
       "nvim-neotest/neotest-jest",
       "olimorris/neotest-phpunit",
       "nvim-neotest/neotest-python",
@@ -834,7 +848,7 @@ return {
           require("neotest-dotnet"),
           require("neotest-elixir"),
           require("neotest-golang"),
-          require("neotest-java"),
+          -- require("neotest-java"),
           require("neotest-jest"),
           require("neotest-phpunit"),
           require("neotest-python"),

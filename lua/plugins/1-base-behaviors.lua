@@ -2,6 +2,7 @@
 -- Plugins that add new behaviors.
 
 --    Sections:
+--       -> snacks.nvim            [statuscolumn]
 --       -> yazi file browser      [yazi]
 --       -> project.nvim           [project search + auto cd]
 --       -> trim.nvim              [auto trim spaces]
@@ -13,7 +14,6 @@
 --       -> session-manager        [session]
 --       -> spectre.nvim           [search and replace in project]
 --       -> neotree file browser   [neotree]
---       -> nvim-ufo               [folding mod]
 --       -> nvim-neoclip           [nvim clipboard]
 --       -> zen-mode.nvim          [distraction free mode]
 --       -> suda.vim               [write as sudo]
@@ -29,6 +29,20 @@
 local is_android = vim.fn.isdirectory('/data') == 1 -- true if on android
 
 return {
+
+  -- snacks.nvim [statuscolumn]
+  -- https://github.com/folke/snacks.nvim
+  {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      statuscolumn = {
+        -- your statuscolumn configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    }
+  },
 
   -- [yazi] file browser
   -- https://github.com/mikavilpas/yazi.nvim
@@ -125,13 +139,13 @@ return {
 
   -- better-scape.nvim [esc]
   -- https://github.com/max397574/better-escape.nvim
-  {
-    "max397574/better-escape.nvim",
-    event = "User BaseDefered",
-    opts = {
-      timeout = 300,
-    }
-  },
+  -- {
+  --   "max397574/better-escape.nvim",
+  --   event = "User BaseDefered",
+  --   opts = {
+  --     timeout = 300,
+  --   }
+  -- },
 
   -- Toggle floating terminal on <F7> [term]
   -- https://github.com/akinsho/toggleterm.nvim
@@ -477,51 +491,6 @@ return {
         },
       }
     end,
-  },
-
-  --  code [folding mod] + [promise-asyn] dependency
-  --  https://github.com/kevinhwang91/nvim-ufo
-  --  https://github.com/kevinhwang91/promise-async
-  {
-    "kevinhwang91/nvim-ufo",
-    event = { "User BaseFile" },
-    dependencies = { "kevinhwang91/promise-async" },
-    opts = {
-      preview = {
-        mappings = {
-          scrollB = "<C-b>",
-          scrollF = "<C-f>",
-          scrollU = "<C-u>",
-          scrollD = "<C-d>",
-        },
-      },
-      provider_selector = function(_, filetype, buftype)
-        local function handleFallbackException(bufnr, err, providerName)
-          if type(err) == "string" and err:match "UfoFallbackException" then
-            return require("ufo").getFolds(bufnr, providerName)
-          else
-            return require("promise").reject(err)
-          end
-        end
-
-        -- only use indent until a file is opened
-        return (filetype == "" or buftype == "nofile") and "indent"
-            or function(bufnr)
-              return require("ufo")
-                  .getFolds(bufnr, "lsp")
-                  :catch(
-                    function(err)
-                      return handleFallbackException(bufnr, err, "treesitter")
-                    end
-                  )
-                  :catch(
-                    function(err)
-                      return handleFallbackException(bufnr, err, "indent")
-                    end
-                  )
-            end
-      end,
-    },
   },
 
   --  nvim-neoclip [nvim clipboard]

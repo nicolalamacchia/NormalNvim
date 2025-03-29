@@ -3,9 +3,12 @@
 
 --    Sections:
 --       -> tokyonight                  [theme]
+--       -> gruvbox                     [theme]
+--       -> kanagawa                    [theme]
 --       -> astrotheme                  [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
+--       -> indent-blankline.nvim       [guides]
 --       -> mini.indentscope            [guides]
 --       -> heirline-components.nvim    [ui components]
 --       -> heirline                    [ui components]
@@ -15,6 +18,7 @@
 --       -> noice.nvim                  [better cmd/search line]
 --       -> nvim-web-devicons           [icons | ui]
 --       -> lspkind.nvim                [icons | lsp]
+--       -> vim-scrolly                 [scrollbar]
 --       -> nvim-scrollbar              [scrollbar]
 --       -> mini.animate                [animations]
 --       -> highlight-undo              [highlights]
@@ -32,12 +36,39 @@ return {
     "folke/tokyonight.nvim",
     event = "User LoadColorSchemes",
     opts = {
-      dim_inactive = false,
+      dim_inactive = true,
       styles = {
         comments = { italic = true },
         keywords = { italic = true },
       },
     }
+  },
+
+  --  gruvbox [theme]
+  --  https://github.com/ellisonleao/gruvbox.nvim
+  {
+    "ellisonleao/gruvbox.nvim",
+    event = "User LoadColorSchemes",
+    config = true,
+    priority = 1000,
+  },
+
+  --  kanagawa [theme]
+  --  https://github.com/rebelot/kanagawa.nvim
+  {
+    "rebelot/kanagawa.nvim",
+    event = "User LoadColorSchemes",
+    config = true,
+    priority = 1000,
+  },
+
+  --  solarized-osaka [theme]
+  --  https://github.com/craftzdog/solarized-osaka.nvim
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
 
   --  astrotheme [theme]
@@ -61,63 +92,6 @@ return {
       local dashboard = require("alpha.themes.dashboard")
 
       -- Header
-      -- dashboard.section.header.val = {
-      --   "                                                                     ",
-      --   "       ████ ██████           █████      ██                     ",
-      --   "      ███████████             █████                             ",
-      --   "      █████████ ███████████████████ ███   ███████████   ",
-      --   "     █████████  ███    █████████████ █████ ██████████████   ",
-      --   "    █████████ ██████████ █████████ █████ █████ ████ █████   ",
-      --   "  ███████████ ███    ███ █████████ █████ █████ ████ █████  ",
-      --   " ██████  █████████████████████ ████ █████ █████ ████ ██████ ",
-      -- }
-      -- dashboard.section.header.val = {
-      --   '                                        ▟▙            ',
-      --   '                                        ▝▘            ',
-      --   '██▃▅▇█▆▖  ▗▟████▙▖   ▄████▄   ██▄  ▄██  ██  ▗▟█▆▄▄▆█▙▖',
-      --   '██▛▔ ▝██  ██▄▄▄▄██  ██▛▔▔▜██  ▝██  ██▘  ██  ██▛▜██▛▜██',
-      --   '██    ██  ██▀▀▀▀▀▘  ██▖  ▗██   ▜█▙▟█▛   ██  ██  ██  ██',
-      --   '██    ██  ▜█▙▄▄▄▟▊  ▀██▙▟██▀   ▝████▘   ██  ██  ██  ██',
-      --   '▀▀    ▀▀   ▝▀▀▀▀▀     ▀▀▀▀       ▀▀     ▀▀  ▀▀  ▀▀  ▀▀',
-      -- }
-      -- dashboard.section.header.val = {
-      --   '                    ▟▙            ',
-      --   '                    ▝▘            ',
-      --   '██▃▅▇█▆▖  ██▄  ▄██  ██  ▗▟█▆▄▄▆█▙▖',
-      --   '██▛▔ ▝██  ▝██  ██▘  ██  ██▛▜██▛▜██',
-      --   '██    ██   ▜█▙▟█▛   ██  ██  ██  ██',
-      --   '██    ██   ▝████▘   ██  ██  ██  ██',
-      --   '▀▀    ▀▀     ▀▀     ▀▀  ▀▀  ▀▀  ▀▀',
-      -- }
-      -- Generated with https://www.fancytextpro.com/BigTextGenerator/Larry3D
-      -- dashboard.section.header.val = {
-      --   [[ __  __                  __  __                     ]],
-      --   [[/\ \/\ \                /\ \/\ \  __                ]],
-      --   [[\ \ `\\ \     __    ___ \ \ \ \ \/\_\    ___ ___    ]],
-      --   [[ \ \ , ` \  /'__`\ / __`\\ \ \ \ \/\ \ /' __` __`\  ]],
-      --   [[  \ \ \`\ \/\  __//\ \L\ \\ \ \_/ \ \ \/\ \/\ \/\ \ ]],
-      --   [[   \ \_\ \_\ \____\ \____/ \ `\___/\ \_\ \_\ \_\ \_\]],
-      --   [[    \/_/\/_/\/____/\/___/   `\/__/  \/_/\/_/\/_/\/_/]],
-      -- }
-      --  dashboard.section.header.val = {
-      --   '                                                     ',
-      --   '  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ',
-      --   '  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ',
-      --   '  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ',
-      --   '  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ',
-      --   '  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ',
-      --   '  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ',
-      --   '                                                     ',
-      -- }
-      -- dashboard.section.header.val = {
-      --   [[                __                ]],
-      --   [[  ___   __  __ /\_\    ___ ___    ]],
-      --   [[/' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
-      --   [[/\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-      --   [[\ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
-      --   [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
-      -- }
-
       if is_android then
         dashboard.section.header.val = {
           [[         __                ]],
@@ -129,20 +103,14 @@ return {
         }
       else
         dashboard.section.header.val = {
-          [[888b      88                                                           88]],
-          [[8888b     88                                                           88]],
-          [[88 `8b    88                                                           88]],
-          [[88  `8b   88   ,adPPYba,   8b,dPPYba,  88,dPYba,,adPYba,   ,adPPYYba,  88]],
-          [[88   `8b  88  a8"     "8a  88P'   "Y8  88P'   "88"    "8a  ""     `Y8  88]],
-          [[88    `8b 88  8b       d8  88          88      88      88  ,adPPPPP88  88]],
-          [[88     `8888  "8a,   ,a8"  88          88      88      88  88,    ,88  88]],
-          [[88      `888   `"YbbdP"'   88          88      88      88  `"8bbdP"Y8  88]],
-          [[                                    __                ]],
-          [[                      ___   __  __ /\_\    ___ ___    ]],
-          [[                    /' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
-          [[                    /\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-          [[                    \ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
-          [[                     \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
+          "                                                                     ",
+          "       ████ ██████           █████      ██                     ",
+          "      ███████████             █████                             ",
+          "      █████████ ███████████████████ ███   ███████████   ",
+          "     █████████  ███    █████████████ █████ ██████████████   ",
+          "    █████████ ██████████ █████████ █████ █████ ████ █████   ",
+          "  ███████████ ███    ███ █████████ █████ █████ ████ █████  ",
+          " ██████  █████████████████████ ████ █████ █████ ████ ██████ ",
         }
       end
 
@@ -253,6 +221,42 @@ return {
     end,
   },
 
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {
+      indent = {
+        char = "▏",
+        tab_char = "│",
+      },
+      scope = { show_start = false, show_end = false, enabled = false },
+      exclude = {
+        filetypes = {
+          "Trouble",
+          "alpha",
+          "dashboard",
+          "help",
+          "lazy",
+          "mason",
+          "neo-tree",
+          "notify",
+          "snacks_dashboard",
+          "snacks_notif",
+          "snacks_terminal",
+          "snacks_win",
+          "toggleterm",
+          "trouble",
+        },
+      },
+    },
+    config = function(_, opts)
+      require("ibl").setup(opts)
+    end,
+  },
+
   --  mini.indentscope [guides]
   --  https://github.com/echasnovski/mini.indentscope
   {
@@ -260,7 +264,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       draw = { delay = 0, animation = function() return 0 end },
-      options = { border = "top", try_as_border = true },
+      options = { border = "both", try_as_border = true },
       symbol = "▏",
     },
     config = function(_, opts)
@@ -605,6 +609,12 @@ return {
     end,
   },
 
+  -- vim-scrolly [scrollbar]
+  -- https://github.com/nicolalamacchia/vim-scrolly
+  {
+    "nicolalamacchia/vim-scrolly"
+  },
+
   --  nvim-scrollbar [scrollbar]
   --  https://github.com/petertriho/nvim-scrollbar
   {
@@ -717,6 +727,4 @@ return {
       require("base.utils").which_key_register()
     end,
   },
-
-
 } -- end of return

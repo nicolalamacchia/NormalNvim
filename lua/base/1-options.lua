@@ -1,29 +1,37 @@
--- HELLO, welcome to NormalNvim!
--- ----------------------------------------
--- Here you can define your nvim variables.
--- ----------------------------------------
-
--- Theme
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+vim.g.big_file = { size = 1024 * 5000, lines = 50000 } -- For files bigger than this, disable 'treesitter' (+5Mb).
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+vim.g.netrw_hide = 0
 vim.g.default_colorscheme = "tokyonight-night"
 
--- Options --------------------------------------------------------------------
+vim.opt.smoothscroll = false
+vim.opt.autowrite = false
+vim.opt.autoread = false
+vim.opt.conceallevel = 0
+vim.opt.cursorlineopt = "line"
 vim.opt.breakindent = true -- Wrap indent to match  line start.
-vim.opt.clipboard = "unnamedplus" -- Connection to the system clipboard.
+vim.opt.clipboard = { "unnamed", "unnamedplus" } -- Connection to the system clipboard.
 vim.opt.cmdheight = 0 -- Hide command line unless needed.
 vim.opt.completeopt = { "menu", "menuone", "noselect" } -- Options for insert mode completion.
+-- vim.opt.completeopt = { "menu", "menuone", "longest", "preview" }
 vim.opt.copyindent = true -- Copy the previous indentation on autoindenting.
 vim.opt.cursorline = true -- Highlight the text line of the cursor.
 vim.opt.expandtab = true -- Enable the use of space in tab.
 vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer.
-vim.opt.fillchars = { eob = " " } -- Disable `~` on nonexistent lines.
-vim.opt.foldenable = true -- Enable fold for nvim-ufo.
-vim.opt.foldlevel = 99 -- set highest foldlevel for nvim-ufo.
-vim.opt.foldlevelstart = 99 -- Start with all code unfolded.
-vim.opt.foldcolumn = "1" -- Show foldcolumn in nvim 0.9+.
+vim.opt.foldenable = false -- Enable fold for nvim-ufo.
+-- vim.opt.foldlevel = 99 -- set highest foldlevel for nvim-ufo.
+-- vim.opt.foldlevelstart = 99 -- Start with all code unfolded.
+vim.opt.foldlevelstart = 0 -- Start with all code folded.
+vim.opt.foldmethod = "marker"
+vim.opt.foldcolumn = "3" -- Show foldcolumn in nvim 0.9+.
 vim.opt.ignorecase = true -- Case insensitive searching.
+vim.opt.smartcase = true -- Case sensitivie searching.
 vim.opt.infercase = true -- Infer cases in keyword completion.
-
-vim.opt.laststatus = 3 -- Global statusline.
+-- vim.opt.laststatus = 3 -- Global statusline.
+vim.opt.laststatus = 2 -- Global statusline.
 vim.opt.linebreak = true -- Wrap lines at 'breakat'.
 vim.opt.number = true -- Show numberline.
 vim.opt.preserveindent = true -- Preserve indent structure as much as possible.
@@ -33,41 +41,81 @@ vim.opt.shiftwidth = 2 -- Number of space inserted for indentation.
 vim.opt.showmode = false -- Disable showing modes in command line.
 vim.opt.showtabline = 2 -- always display tabline.
 vim.opt.signcolumn = "yes" -- Always show the sign column.
-vim.opt.smartcase = true -- Case sensitivie searching.
 vim.opt.smartindent = false -- Smarter autoindentation.
-vim.opt.splitbelow = true -- Splitting a new window below the current one.
+vim.opt.splitbelow = false -- Splitting a new window below the current one.
 vim.opt.splitright = true -- Splitting a new window at the right of the current one.
 vim.opt.tabstop = 2 -- Number of space in a tab.
-
+vim.opt.smarttab = true
+vim.opt.softtabstop = 2
+vim.opt.listchars = {
+  tab = "→ ",
+  trail = "▒",
+  space = "·",
+  extends = ">",
+  precedes = "<",
+  nbsp = "␣",
+}
 vim.opt.termguicolors = true -- Enable 24-bit RGB color in the TUI.
 vim.opt.undofile = true -- Enable persistent undo between session and reboots.
 vim.opt.updatetime = 300 -- Length of time to wait before triggering the plugin.
 vim.opt.virtualedit = "block" -- Allow going past end of line in visual block mode.
-vim.opt.writebackup = false -- Disable making a backup before overwriting a file.
+-- vim.opt.writebackup = false -- Disable making a backup before overwriting a file.
 vim.opt.shada = "!,'1000,<50,s10,h" -- Remember the last 1000 opened files
 vim.opt.history = 1000 -- Number of commands to remember in a history table (per buffer).
-vim.opt.swapfile = false -- Ask what state to recover when opening a file that was not saved.
-vim.opt.wrap = true -- Disable wrapping of lines longer than the width of window.
+-- vim.opt.swapfile = false -- Ask what state to recover when opening a file that was not saved.
+vim.opt.wrap = true -- Enable wrapping of lines longer than the width of window.
 vim.opt.colorcolumn = "80" -- PEP8 like character limit vertical bar.
 vim.opt.mousescroll = "ver:1,hor:0" -- Disables hozirontal scroll in neovim.
 vim.opt.guicursor = "n:blinkon200,i-ci-ve:ver25" -- Enable cursor blink.
 vim.opt.autochdir = true -- Use current file dir as working dir (See project.nvim).
-vim.opt.scrolloff = 1000 -- Number of lines to leave before/after the cursor when scrolling. Setting a high value keep the cursor centered.
+-- vim.opt.scrolloff = 1000 -- Number of lines to leave before/after the cursor when scrolling. Setting a high value keep the cursor centered.
+vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 8 -- Same but for side scrolling.
 vim.opt.selection = "old" -- Don't select the newline symbol when using <End> on visual mode.
-
-vim.opt.viewoptions:remove "curdir" -- Disable saving current directory with views.
-vim.opt.shortmess:append { s = true, I = true } -- Disable startup message.
-vim.opt.backspace:append { "nostop" } -- Don't stop backspace at insert.
-vim.opt.diffopt:append { "algorithm:histogram", "linematch:60" } -- Enable linematch diff algorithm
-
-local is_android = vim.fn.isdirectory('/data') == 1
-if is_android then vim.opt.mouse = "v" else vim.opt.mouse = "a" end -- Enable scroll for android
-
--- Globals --------------------------------------------------------------------
-vim.g.mapleader = " " -- Set leader key.
-vim.g.maplocalleader = "," -- Set default local leader key.
-vim.g.big_file = { size = 1024 * 5000, lines = 50000 } -- For files bigger than this, disable 'treesitter' (+5Mb).
+vim.opt.viewoptions:remove("curdir") -- Disable saving current directory with views.
+vim.opt.shortmess:append({ s = true, I = true }) -- Disable startup message.
+vim.opt.backspace:append({ "nostop" }) -- Don't stop backspace at insert.
+vim.opt.diffopt:append({ "algorithm:histogram", "linematch:60" }) -- Enable linematch diff algorithm
+local is_android = vim.fn.isdirectory("/data") == 1
+if is_android then
+  vim.opt.mouse = "v"
+else
+  vim.opt.mouse = "a"
+end -- Enable scroll for android
+vim.opt.compatible = false
+vim.opt.lazyredraw = false
+vim.opt.hidden = false
+vim.opt.visualbell = true
+vim.opt.timeoutlen = 500
+vim.opt.splitkeep = "screen"
+vim.opt.fillchars:append({ vert = "│", foldopen = "▽", foldclose = "▷", foldsep = "┊", fold = "┄" })
+vim.opt.showcmd = true
+vim.opt.switchbuf = { "useopen", "usetab", "newtab" }
+vim.opt.autoindent = true
+vim.opt.shiftround = false
+vim.opt.ruler = true
+vim.opt.formatoptions = "qljr"
+vim.opt.showmatch = true
+vim.opt.confirm = true
+vim.opt.wildoptions = { "fuzzy", "pum" }
+vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
+vim.opt.complete = ".,w,b,u,t,i,d,k,kspell"
+vim.opt.dictionary = "/usr/share/dict/words,/usr/dict/words"
+vim.opt.matchpairs:append("<:>")
+vim.opt.maxmempattern = 5000
+vim.opt.encoding = "utf-8"
+if vim.bo.modifiable then
+  vim.opt.fileencoding = "utf-8"
+end
+vim.opt.undolevels = 10000
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.gdefault = true
+vim.opt.winheight = 5
+vim.opt.winminheight = 5
+vim.opt.winwidth = 86
+vim.opt.winminwidth = 5 -- Minimum window width
+vim.opt.background = "dark"
 
 -- The next globals are toggleable with <space + l + u>
 vim.g.autoformat_enabled = false -- Enable auto formatting at start.
@@ -83,4 +131,3 @@ vim.g.lsp_signature_enabled = true -- Enable automatically showing lsp help as y
 vim.g.notifications_enabled = true -- Enable notifications.
 vim.g.semantic_tokens_enabled = true -- Enable lsp semantic tokens at start.
 vim.g.url_effect_enabled = true -- Highlight URLs with an underline effect.
-

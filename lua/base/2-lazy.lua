@@ -16,6 +16,14 @@ local updates_config = {
   snapshot_file = "lazy_snapshot.lua", -- plugins lockfile created by running the command ':DistroFreezePluginVersions' provided by `distroupdate.nvim`.
 }
 
+local disabled_plugins = {
+  "tohtml",
+  "gzip",
+  "zipPlugin",
+  "netrwPlugin",
+  "tarPlugin",
+}
+
 --- Download 'lazy' from its git repository if lazy_dir doesn't exists already.
 --- Note: This function should ONLY run the first time you start nvim.
 --- @param lazy_dir string Path to clone lazy into. Recommended: `<nvim data dir>/lazy/lazy.nvim`
@@ -88,13 +96,7 @@ local function setup_lazy(lazy_dir)
     defaults = { lazy = true },
     performance = {
       rtp = { -- Disable unnecessary nvim features to speed up startup.
-        disabled_plugins = {
-          "tohtml",
-          "gzip",
-          "zipPlugin",
-          "netrwPlugin",
-          "tarPlugin",
-        },
+        disabled_plugins = disabled_plugins,
       },
     },
     -- Enable luarocks if installed.

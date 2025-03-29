@@ -130,62 +130,62 @@ maps.n["<Tab>"] = {
 --      is the keycode for scrolling, and remapping it would break it.
 if not is_android then
   -- only useful when the option clipboard is commented on ./1-options.lua
-  maps.n["<C-y>"] = { '"+y<esc>', desc = "Copy to cliboard" }
-  maps.x["<C-y>"] = { '"+y<esc>', desc = "Copy to cliboard" }
-  maps.n["<C-d>"] = { '"+y<esc>dd', desc = "Copy to clipboard and delete line" }
-  maps.x["<C-d>"] = { '"+y<esc>dd', desc = "Copy to clipboard and delete line" }
-  maps.n["<C-p>"] = { '"+p<esc>', desc = "Paste from clipboard" }
+  -- maps.n["<C-y>"] = { '"+y<esc>', desc = "Copy to cliboard" }
+  -- maps.x["<C-y>"] = { '"+y<esc>', desc = "Copy to cliboard" }
+  -- maps.n["<C-d>"] = { '"+y<esc>dd', desc = "Copy to clipboard and delete line" }
+  -- maps.x["<C-d>"] = { '"+y<esc>dd', desc = "Copy to clipboard and delete line" }
+  -- maps.n["<C-p>"] = { '"+p<esc>', desc = "Paste from clipboard" }
 end
 
 -- Make 'c' key not copy to clipboard when changing a character.
-maps.n["c"] = { '"_c', desc = "Change without yanking" }
-maps.n["C"] = { '"_C', desc = "Change without yanking" }
-maps.x["c"] = { '"_c', desc = "Change without yanking" }
-maps.x["C"] = { '"_C', desc = "Change without yanking" }
+-- maps.n["c"] = { '"_c', desc = "Change without yanking" }
+-- maps.n["C"] = { '"_C', desc = "Change without yanking" }
+-- maps.x["c"] = { '"_c', desc = "Change without yanking" }
+-- maps.x["C"] = { '"_C', desc = "Change without yanking" }
 
 -- Make 'x' key not copy to clipboard when deleting a character.
-maps.n["x"] = {
-  -- Also let's allow 'x' key to delete blank lines in normal mode.
-  function()
-    if vim.fn.col "." == 1 then
-      local line = vim.fn.getline "."
-      if line:match "^%s*$" then
-        vim.api.nvim_feedkeys('"_dd', "n", false)
-        vim.api.nvim_feedkeys("$", "n", false)
-      else
-        vim.api.nvim_feedkeys('"_x', "n", false)
-      end
-    else
-      vim.api.nvim_feedkeys('"_x', "n", false)
-    end
-  end,
-  desc = "Delete character without yanking it",
-}
-maps.x["x"] = { '"_x', desc = "Delete all characters in line" }
+-- maps.n["x"] = {
+--   -- Also let's allow 'x' key to delete blank lines in normal mode.
+--   function()
+--     if vim.fn.col "." == 1 then
+--       local line = vim.fn.getline "."
+--       if line:match "^%s*$" then
+--         vim.api.nvim_feedkeys('"_dd', "n", false)
+--         vim.api.nvim_feedkeys("$", "n", false)
+--       else
+--         vim.api.nvim_feedkeys('"_x', "n", false)
+--       end
+--     else
+--       vim.api.nvim_feedkeys('"_x', "n", false)
+--     end
+--   end,
+--   desc = "Delete character without yanking it",
+-- }
+-- maps.x["x"] = { '"_x', desc = "Delete all characters in line" }
 
 -- Same for shifted X
-maps.n["X"] = {
-  -- Also let's allow 'x' key to delete blank lines in normal mode.
-  function()
-    if vim.fn.col "." == 1 then
-      local line = vim.fn.getline "."
-      if line:match "^%s*$" then
-        vim.api.nvim_feedkeys('"_dd', "n", false)
-        vim.api.nvim_feedkeys("$", "n", false)
-      else
-        vim.api.nvim_feedkeys('"_X', "n", false)
-      end
-    else
-      vim.api.nvim_feedkeys('"_X', "n", false)
-    end
-  end,
-  desc = "Delete before character without yanking it",
-}
-maps.x["X"] = { '"_X', desc = "Delete all characters in line" }
+-- maps.n["X"] = {
+--   -- Also let's allow 'x' key to delete blank lines in normal mode.
+--   function()
+--     if vim.fn.col "." == 1 then
+--       local line = vim.fn.getline "."
+--       if line:match "^%s*$" then
+--         vim.api.nvim_feedkeys('"_dd', "n", false)
+--         vim.api.nvim_feedkeys("$", "n", false)
+--       else
+--         vim.api.nvim_feedkeys('"_X', "n", false)
+--       end
+--     else
+--       vim.api.nvim_feedkeys('"_X', "n", false)
+--     end
+--   end,
+--   desc = "Delete before character without yanking it",
+-- }
+-- maps.x["X"] = { '"_X', desc = "Delete all characters in line" }
 
 -- Override nvim default behavior so it doesn't auto-yank when pasting on visual mode.
-maps.x["p"] = { "P", desc = "Paste content you've previourly yanked" }
-maps.x["P"] = { "p", desc = "Yank what you are going to override, then paste" }
+-- maps.x["p"] = { "P", desc = "Paste content you've previourly yanked" }
+-- maps.x["P"] = { "p", desc = "Yank what you are going to override, then paste" }
 
 -- search highlighting ------------------------------------------------------
 -- use ESC to clear hlsearch, while preserving its original functionality.
@@ -253,14 +253,14 @@ maps.x["G"] = {
   end,
   desc = "G and go to the last position (visual)",
 }
-maps.n["<C-a>"] = { -- to move to the previous position press ctrl + oo
-  function()
-    vim.g.minianimate_disable = true
-    vim.cmd("normal! gg0vG$")
-    vim.g.minianimate_disable = false
-  end,
-  desc = "Visually select all",
-}
+-- maps.n["<C-a>"] = { -- to move to the previous position press ctrl + oo
+--   function()
+--     vim.g.minianimate_disable = true
+--     vim.cmd("normal! gg0vG$")
+--     vim.g.minianimate_disable = false
+--   end,
+--   desc = "Visually select all",
+-- }
 
 -- packages -----------------------------------------------------------------
 -- lazy
@@ -410,18 +410,18 @@ maps.n["<leader>b|"] = {
 }
 
 -- quick buffer switching
-maps.n["<C-k>"] = {
-  function()
-    require("heirline-components.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
-  end,
-  desc = "Next buffer",
-}
-maps.n["<C-j>"] = {
-  function()
-    require("heirline-components.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
-  end,
-  desc = "Previous buffer",
-}
+-- maps.n["<C-k>"] = {
+--   function()
+--     require("heirline-components.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
+--   end,
+--   desc = "Next buffer",
+-- }
+-- maps.n["<C-j>"] = {
+--   function()
+--     require("heirline-components.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+--   end,
+--   desc = "Previous buffer",
+-- }
 
 -- tabs
 maps.n["]t"] = { function() vim.cmd.tabnext() end, desc = "Next tab" }
@@ -1641,4 +1641,166 @@ if is_autoformat_enabled and is_filetype_allowed and is_filetype_ignored then
 end
 
 utils.set_mappings(maps)
+
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+
+--------------------------------------------------------------------------------
+-- Commands
+--------------------------------------------------------------------------------
+local command = vim.api.nvim_create_user_command
+command("WQ", "wq", {})
+command("Wq", "wq", {})
+command("W", "w", {})
+command("Q", "q", {})
+command("QA", "qa", {})
+command("Qa", "qa", {})
+command("C", "let @/ = ''", {})
+
+--------------------------------------------------------------------------------
+-- Functions
+--------------------------------------------------------------------------------
+function Help()
+  local ft = vim.bo.filetype
+  if ft == "vim" or ft == "help" then
+    vim.cmd("help " .. vim.fn.expand("<cword>"))
+  end
+end
+
+--------------------------------------------------------------------------------
+-- keybindings
+--------------------------------------------------------------------------------
+local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+-- Toggle paste mode
+keymap("n", "<leader>p", ":set paste!<CR>", { silent = true })
+
+-- Save and quit
+keymap("n", "<leader>w", ":w<CR>", opts)
+keymap("n", "<leader>q", ":q<CR>", opts)
+
+-- Easier page-up and page-down
+keymap("n", "<C-j>", "<C-d>", opts)
+keymap("n", "<C-k>", "<C-u>", opts)
+keymap("n", "<C-h>", "<C-b>", opts)
+keymap("n", "<C-l>", "<C-f>", opts)
+
+-- Easier line scrolling
+keymap("n", "<C-S-j>", "<C-e>", opts)
+keymap("n", "<C-S-k>", "<C-y>", opts)
+
+-- Split and tab management
+keymap("n", "<leader>h", ":split<CR>", opts)
+keymap("n", "<leader>v", ":vsplit<CR>", opts)
+keymap("n", "<leader>tn", ":tabnew<CR>", opts)
+keymap("n", "<leader>tc", ":tabclose<CR>", opts)
+
+-- Buffer navigation
+keymap("n", "<leader>bn", ":bnext<CR>", opts)
+keymap("n", "<leader>bp", ":bprevious<CR>", opts)
+keymap("n", "<leader>bd", ":bd<CR>", opts)
+keymap("n", "<leader>bl", ":buffers<CR>", opts)
+
+-- Move selected lines up/down in visual mode
+keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+
+-- Join lines and keep cursor in place
+keymap("n", "J", "mzJ`z", opts)
+--
+-- -- Scroll and center cursor
+-- keymap("n", "<C-d>", "<C-d>zz", opts)
+-- keymap("n", "<C-u>", "<C-u>zz", opts)
+
+-- Keep search matches centered
+keymap("n", "n", "nzzzv", opts)
+keymap("n", "N", "Nzzzv", opts)
+
+-- Clipboard and registers
+keymap("x", "<leader>p", '"_dP', opts)
+keymap("n", "<leader>y", '"+y', opts)
+keymap("v", "<leader>y", '"+y', opts)
+keymap("n", "<leader>Y", '"+Y', opts)
+keymap("n", "<leader>d", '"_d', opts)
+keymap("v", "<leader>d", '"_d', opts)
+
+-- Replace word under cursor
+keymap("n", "<leader>S", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { silent = true })
+
+-- Make current file executable
+keymap("n", "<leader>x", ":!chmod +x %<CR>", opts)
+
+-- Toggle relative line numbers
+keymap("n", "<leader>rn", ":set relativenumber!<CR>", opts)
+
+-- Clear search highlights
+keymap("n", "<F3>", ":nohlsearch<CR>", opts)
+keymap("n", "<leader>cc", ":nohlsearch<CR>", opts)
+keymap("n", "<Esc>", ":nohlsearch<CR>", opts)
+
+-- Source current file
+keymap("n", "<leader><leader>", ":so<CR>", opts)
+
+-- Quick access to Vim configuration
+keymap("n", "<leader>ev", ":e $MYVIMRC<CR>", opts)
+keymap("n", "<leader>sv", ":source $MYVIMRC<CR>", opts)
+
+-- Following the link
+keymap("n", "<CR>", "<C-]>", opts)
+
+-- Sync syntax from start
+keymap("n", "<leader>ss", ":syntax sync fromstart<CR>", opts)
+
+-- Toggle scrollbind
+keymap("n", "<leader>sb", ":set scrollbind!<CR>", opts)
+
+-- Diff commands
+keymap("n", "<leader>Dt", ":diffthis<CR>", opts)
+keymap("n", "<leader>Do", ":diffoff<CR>", opts)
+
+-- Toggle fold with Space
+keymap("n", "<Space>", "za", opts)
+
+-- Insert new lines and enter Insert mode
+keymap("n", "<leader>ii", "ko<ESC>jo<ESC>kA", opts)
+
+-- Source the current file
+keymap("n", "<leader>st", ":source %<CR>", opts)
+
+-- New Tab
+keymap("n", "<C-t>", ":tabnew<CR>", opts)
+
+-- Up and down inside blocks
+keymap("n", "k", "gk", opts)
+keymap("n", "j", "gj", opts)
+
+-- Resize window
+keymap("n", "+", "5<C-w>>", opts)
+keymap("n", "-", "5<C-w><", opts)
+
+-- Maximize win height
+keymap("n", "<leader>mw", "<C-w><bar>", opts)
+keymap("n", "<leader>mh", "<C-w>_", opts)
+
+-- Retab
+keymap("n", "<leader>rt", ":retab<CR>", opts)
+
+-- toggle list
+keymap("n", "<leader>ll", ":set list!<cr>", opts)
+
+-- select all
+keymap("n", "<leader>sa", "ggvg", opts)
+
+-- access documentation
+keymap("n", "<f1>", Help, opts)
+keymap("n", "<leader>?", Help, opts)
+
+-- easy indent and dedent in visual mode
+keymap("v", "<s-tab>", "<gv", opts)
+keymap("v", "<tab>", ">gv", opts)
+
+keymap("n", "gY", ":%y<CR>")
+
 return M
