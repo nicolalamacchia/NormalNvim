@@ -47,13 +47,14 @@ vim.opt.tabstop = 2 -- Number of space in a tab.
 vim.opt.smarttab = true
 vim.opt.softtabstop = 2
 vim.opt.listchars = {
-  tab = "→ ",
+  tab = "├─",
   trail = "▒",
   space = "·",
   extends = ">",
   precedes = "<",
   nbsp = "␣",
 }
+vim.opt.list = true -- Show whitespace characters.
 vim.opt.termguicolors = true -- Enable 24-bit RGB color in the TUI.
 vim.opt.undofile = true -- Enable persistent undo between session and reboots.
 vim.opt.updatetime = 300 -- Length of time to wait before triggering the plugin.
