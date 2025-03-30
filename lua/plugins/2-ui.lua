@@ -229,7 +229,8 @@ return {
     ---@type ibl.config
     opts = {
       indent = {
-        char = "▏",
+        -- char = "▏",
+        char = "│",
         tab_char = "│",
       },
       scope = { show_start = false, show_end = false, enabled = false },
@@ -265,7 +266,8 @@ return {
     opts = {
       draw = { delay = 0, animation = function() return 0 end },
       options = { border = "both", try_as_border = true },
-      symbol = "▏",
+      -- symbol = "▏",
+      symbol = "│",
     },
     config = function(_, opts)
       require("mini.indentscope").setup(opts)
