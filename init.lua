@@ -28,14 +28,14 @@ local function load_sources_async(source_files)
 end
 
 local function load_colorscheme(colorscheme)
-    if vim.g.default_colorscheme then
-      if not pcall(vim.cmd.colorscheme, colorscheme) then
-        require("base.utils").notify(
-          "Error setting up colorscheme: " .. colorscheme,
-          vim.log.levels.ERROR
-        )
-      end
+  if vim.g.default_colorscheme then
+    if not pcall(vim.cmd.colorscheme, colorscheme) then
+      require("base.utils").notify(
+        "Error setting up colorscheme: " .. colorscheme,
+        vim.log.levels.ERROR
+      )
     end
+  end
 end
 
 -- Call the functions defined above.
