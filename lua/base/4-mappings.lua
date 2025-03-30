@@ -459,6 +459,7 @@ maps.n["<leader>uu"] = { ui.toggle_url_effect, desc = "URL highlight" }
 maps.n["<leader>uw"] = { ui.toggle_wrap, desc = "Wrap" }
 maps.n["<leader>uy"] = { ui.toggle_buffer_syntax, desc = "Syntax highlight (buffer)" }
 maps.n["<leader>uh"] = { ui.toggle_foldcolumn, desc = "Foldcolumn" }
+maps.n["<leader>uI"] = { ui.toggle_list, desc = "List" }
 maps.n["<leader>uN"] =
 { ui.toggle_ui_notifications, desc = "UI notifications" }
 if is_available("lsp_signature.nvim") then
@@ -1761,7 +1762,7 @@ keymap("n", "<leader>Dt", ":diffthis<CR>", opts)
 keymap("n", "<leader>Do", ":diffoff<CR>", opts)
 
 -- Toggle fold with Space
-keymap("n", "<Space>", "za", opts)
+keymap("n", "<S-Space>", "za", opts)
 
 -- Insert new lines and enter Insert mode
 keymap("n", "<leader>ii", "ko<ESC>jo<ESC>kA", opts)

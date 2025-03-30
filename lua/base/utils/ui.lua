@@ -228,6 +228,12 @@ function M.toggle_foldcolumn()
   utils.notify(string.format("foldcolumn=%s", vim.wo.foldcolumn))
 end
 
+--- Toggle list
+function M.toggle_list()
+  vim.wo.list = not vim.wo.list -- local to window
+  utils.notify(string.format("list %s", bool2str(vim.wo.list)))
+end
+
 --- Toggle LSP inlay hints (global)
 --- @param bufnr? number the buffer to toggle the `inlay_hints` on.
 function M.toggle_inlay_hints(bufnr)
